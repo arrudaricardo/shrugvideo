@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name='description' content='After finish the video til the end you can post a video for the next page visitor. You can only watch a new video or post a video if you finish the currently one'>
+  <title>VideoShrug! Watch it till the end."</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+
+
+
+  <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}"  type="image/x-icon">
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico')}}" type="image/x-icon">
+
+
+
+  <style>
+  #share-buttons img
+  {
+   width: 25px; border: 0; box-shadow: 0; display: inline;
+  }
+</style>
+
+</head>
+
+<body style='margin-bottom: 30px; margin:0.5%'>
+
+  <header class="navbar p-1" style="box-shadow: 2px 2px 2px lightgrey;">
+    <img  src="{{ url_for('static', filename='img/logo.png')}}" onClick="window.location.reload()" style='' height="45" width="50" class="mx-2 float-right c-hand navbar-brand img-fit-contain">
+
+    <section class='navbar-section'>
+
+      <a class='btn btn-link mx-2' id='btn'> Info. </a>
+      <div class="modal" id="modal-id">
+        <a href="#close" class="modal-overlay" aria-label="Close"></a>
+        <div class="modal-container">
+          <div class="modal-header">
+            <a href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
+            <div class="modal-title h5">Information.</div>
+          </div>
+          <div class="modal-body">
+            <div class="content">
+              Hello,<p> this website displays the last video submitted by the last user(IP),
+                 you are only able to submit your video after watch the current video until
+                 the end. Videos shorter than 5 minutes has priority..</p>
+            </div>
+            <div class="modal-footer">
+             <a  href="https://github.com/arrudaricardo/" >App Source code.</a>
+           </div>
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+  </header>
+
+<div class="container">
+  <div class='columns columns col-6 col-sm-12 p-centered' style='margin-top: 1%'>
+    <div id='greeting' class="column p-centered text-center h5" style='display:none'> Greeting 🖖</div>
+
+    <div id='toast-body' class="column p-centered p-1" style="display:none">
+                <div  class="toast toast-primary col 4">
+                  <button id='toast-btn' class="btn btn-clear float-right"></button>
+                  <div class="" id="toast-text"></div>
+                </div>
+    </div>
+
+
+    <div id='toast-body1' class="column p-centered" style="display:none">
+                <div  class="toast toast-secondary col 4">
+                  <button id='toast-btn1' class="btn btn-clear float-right"></button>
+                  <div id="toast-text1"></div>
+                </div>
+    </div>
+
+
+
+  </div>
+</div>
+
+
+  <div id='content' class='columns col-9 col-xl-10 col-md-11 col-sm-12 p-centered loading loading-lg'>
+
+
+    <div class='column col-2 col-mr-auto'>
+
+      <div id='checkbox' class='form-group tooltip' data-tooltip="Skip Submit Video" style="display: none">
+       <label class="form-switch ">
+          <input type="checkbox">
+          <i class="form-icon"></i> AutoPlay.
+       </label>
+      </div>
+
+    </div>
+
+    <div id='playerOverlay' class='column c-not-allowed' style='pointer-events: none'>
+      <div id='ytplayer' class=" video-responsive video-responsive-4-3 " style='display: none; margin-bottom: 100px'></div>
+    </div>
+
+
+
+
+<div class='columns p-centered'>
+    <form method="post">
+      <div id="submit" class="column col-mr-auto"style="display: none; padding-top: 15%">
+        <div class='input-group columns' style=''>
+
+
+          <input type="text" name='videoid' class="form-input" placeholder=" YouTube Link or VideoID e.g LnnyQcRbwEI">
+          <button id='submit-btn' class="btn btn-primary input-group-btn">Submit</button>
+        </div>
+        <div class="form-groupn column col-6 col-xs-12 col-mr-auto" style="padding-top: 30px">
+        <label class="form-label" for="msg-label">Message</label>
+          <textarea type="text" maxlength='120' class="form-input" name="msg-txt" id="msg" placeholder="Message to be displayed with your video." rows="3"></textarea>
+            </div>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+  <footer class='footer container' style='position: fixed;left: 0;right: 0;bottom: 1% ;height: 25px;'>
+
+    <div class='docs-footer columns col-oneline grid-lg' style=''>
+      <div class="p-1"> dev in<a href="http://www.python.org"> 🐍 </a> by <a href="mailto:settiricardo@gmail.com">Ricardo Arruda </a>
+      </div>
+
+
+      <div class="col-ml-auto" style="padding-right:10px;" id="share-buttons">
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//shrugvideo.fun/" target="_blank"><img src="https://4.bp.blogspot.com/-raFYZvIFUV0/UwNI2ek6i3I/AAAAAAAAGSA/zs-kwq0q58E/s1600/facebook.png" alt="Facebook" /></a>
+  <a href="https://twitter.com/home?status=This%20website%20www.shrugvideo.fun%20displays%20the%20last%20video%20submitted%20by%20the%20last%20user(IP),%20you%20are%20only%20able%20to%20submit%20your%20video%20after%20watch%20the%20current%20video%20until%20the%20end.%20Videos%20shorter%20than%205%20minutes%20has%20priority." target="_blank"><img src="https://4.bp.blogspot.com/--ISQEurz3aE/UwNI4hDaQMI/AAAAAAAAGS4/ZAgmPiM9Xpk/s1600/twitter.png" alt="Twitter" /></a>
+  <a href="http://reddit.com/submit?url=https://shrugvideo.fun/title=Shrugvideo.fun" target="_blank"><img src="https://4.bp.blogspot.com/-1-mZEa1eiyc/UwNI4JytiFI/AAAAAAAAGSs/AoKmBkkJR-s/s1600/reddit.png" alt="Reddit" /></a>
+  <a href="mailto:?subject=Check%20this%20website!&body=This%20website%20www.shrugvideo.fun%20displays%20the%20last%20video%20submitted%20by%20the%20last%20user(IP)%2C%20you%20are%20only%20able%20to%20submit%20your%20video%20after%20watch%20the%20current%20video%20until%20the%20end.%20Videos%20shorter%20than%205%20minutes%20has%20priority."><img src="https://4.bp.blogspot.com/-njgKtNLrPqI/UwNI2o-9WfI/AAAAAAAAGR4/f8da1gBgyLs/s1600/email.png" alt="Email" /></a>
+    </div>
+
+    </div>
+  </div>
+  </footer>
+
+
+
+</body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script>
+     window.jQuery || document.write('<script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js')}}"><\/script>');
+  </script>
+
+  <script src="{{ url_for('static', filename='js/main.js')}}" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+function postVideoId(ev) {
+  ev.preventDefault();
+  $.ajax({
+    method: 'POST',
+    url: {{url_for('postVideoId') | tojson}},
+    data: $('form').serialize(),
+    success: function (response) {
+      console.log("sent ${response} to postVideoId");
+    }
+  });
+};
+
+
+
+function getVideoId() {
+  $.ajax({
+      method: 'POST',
+      url: {{url_for('getVideoId') | tojson}}
+    })
+    .done(function (res) {
+
+      console.log('Got videoId:', res['result'], res['msg']);
+
+      if (res['result'] == '404') { //user watached all videos
+
+
+        $('#toast-body1').fadeOut(200);
+        $('#ytplayer').fadeOut('slow', function () {
+          $('#toast-body').fadeOut(1000, function () {
+            $('#toast-text').text('You watched all videos ... this page will auto-reload when a new video submitted.');
+            $('#toast-body').fadeIn(1000);
+            $('#content').addClass('loading');
+
+          })
+        })
+
+        setTimeout(getVideoId, 60000) //check for new videos  in x sec.
+
+      } else {
+        $('#content').removeClass('loading');
+        let msgFlag;
+
+        if (res['msg'].length > 0) {
+          msgFlag = true;
+          msg = "Message: " + res['msg'];
+        } else {
+          msg = "No user message";
+          msgFlag = false;
+        }
+
+
+        player.loadVideoById(res['result']); // load video
+        // try to autoplay video in all browsers
+        player.playVideo()
+        $('iframe').focus()
+        $('iframe').click()
+        $('body').focus()
+        $('body').click()
+        document.getElementById('greeting').focus()
+        document.getElementById('greeting').click()
+        document.getElementById('ytplayer').click()
+        document.getElementById('ytplayer').click()
+
+        $('#checkbox').fadeIn(2000);
+        $('#ytplayer').fadeIn(1000); // show player
+
+        if (msgFlag) {
+
+          $('#toast-text1').text(msg);
+          $('#toast-body1').fadeIn(1500, function () { // display video Message
+            $('#toast-body1').fadeOut(1000, function () {
+              $('#toast-body1').fadeIn(1500);
+            });
+          });
+        };
+
+
+        check_player(res['result']);
+
+      };
+    })
+}
+
+
+</script>
+
+
+</html>

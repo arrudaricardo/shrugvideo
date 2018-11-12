@@ -1,0 +1,15 @@
+
+#ignore pyc
+*#
+#
+*.sock
+*.pyc
+#ignore env dir
+/env
+# ds file
+.DS_Store
+# dabase
+*.db
+#script
+db-reset-script.py
+
