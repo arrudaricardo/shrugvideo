@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, jsonify
-from app.pafy import yt_check, get_videoid
+import pafy
 import os
 import json
 from datetime import datetime
@@ -12,7 +12,7 @@ import re
 
 
 def get_ip():
-    return request.environ.get('HTTP_X_REAL_IP')   
+    return request.environ.get('HTTP_X_REAL_IP', request.remote_addr).split(',')[0]
 
 
 @app.route('/')
@@ -27,23 +27,17 @@ def postVideoId():
     msg = request.form['msg-txt']
     ip = str(get_ip())
 
-    if len(video_id) > 11:  # if size of videoId from > 1
-        try:
-            video_id = re.search('v=(.{11})', video_id)[1]  # get videoId string
-        except TypeError:
-            return jsonify(result='404')  # not a valid link
-            
+    try:
+        video = pafy.new(video_id)
+    except (OSError, ValueError) as e:
+        return jsonify(result='404', error=e)
 
-    video_len, video_title = yt_check(video_id)
-    if video_len == '404':
-        return jsonify(result='404')
-    print('Len: ', video_len, 'VideoId: ', video_title,'ip', ip,'Message:', msg)
 
-    # check if user IP is in db
-    post = Video(videoId=video_id, length=video_len, message=msg, title=video_title, timestamp=datetime.utcnow()) # add a Post db obj
 
+    post = Video(videoId=video.videoid, length=video.length // 60, message=msg, title=video.title, timestamp=datetime.utcnow()) # add a Post db obj
+
+    # check for user in db
     user = User.query.filter_by(ip=ip).first()
-
 
     if user == None or user.ip != ip: #if user do not exist
         new_user = User(ip=ip)
@@ -57,7 +51,7 @@ def postVideoId():
     db.session.commit()
 
 
-    return jsonify(video_id=video_id,status=video_len)
+    return jsonify(result='saved successfully')
 
 
 @app.route('/getVideoId', methods=['POST'])

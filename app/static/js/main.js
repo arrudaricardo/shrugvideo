@@ -80,8 +80,8 @@ function check_player(videoId) {
     if (player.getPlayerState() != 0) {
 	player.playVideo(); // play video
 	unMute();
-	
-	
+
+
     } else { //video ended
 
       clearInterval(setCheck); //clear interval
@@ -100,8 +100,12 @@ function check_player(videoId) {
           getVideoId();
 
         } else {
-          // go to submit
+          // go to submit container
           $('#checkbox').fadeOut(1000) //remove chebox
+
+          // clear input 
+          document.getElementById('videoInput').value = "";
+          $('.emojionearea-editor').text('');
 
           $('#ytplayer').fadeOut(1000, function () {
             $('#submit').fadeIn(800); // show submit container
@@ -163,10 +167,17 @@ function videoFinished(videoId, callback) {
 }
 
 // un-mute video
-
-
 function unMute(){
 document.addEventListener('click', function(event){
-   // player.unMute(); 
+ player.unMute();
 }, {'once': true});
 };
+
+
+//emoticon
+$(document).ready(function() {
+$("#msg").emojioneArea({
+  pickerPosition: "left",
+  tonesStyle: "bullet"
+});
+});

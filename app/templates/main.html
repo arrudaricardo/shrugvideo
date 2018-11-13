@@ -9,7 +9,7 @@
 
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
 
-
+  <link rel="stylesheet" href="https://cdn.rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.css">
 
   <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}"  type="image/x-icon">
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico')}}" type="image/x-icon">
@@ -28,7 +28,7 @@
 <body style='margin-bottom: 30px; margin:0.5%'>
 
   <header class="navbar p-1" style="box-shadow: 2px 2px 2px lightgrey;">
-    <img  src="{{ url_for('static', filename='img/logo.png')}}" onClick="window.location.reload()" style='' height="45" width="50" class="mx-2 float-right c-hand navbar-brand img-fit-contain">
+    <img alt="logo"  src="{{ url_for('static', filename='img/logo.png')}}" onClick="window.location.reload()" style='' height="45" width="50" class="mx-2 float-right c-hand navbar-brand img-fit-contain">
 
     <section class='navbar-section'>
 
@@ -47,7 +47,7 @@
                  the end. Videos shorter than 5 minutes has priority..</p>
             </div>
             <div class="modal-footer">
-             <a  href="https://github.com/arrudaricardo/" >App Source code.</a>
+             <a  href="https://github.com/arrudaricardo/shrugvideo" >App Source code.</a>
            </div>
           </div>
         </div>
@@ -109,7 +109,7 @@
         <div class='input-group columns' style=''>
 
 
-          <input type="text" name='videoid' class="form-input" placeholder=" YouTube Link or VideoID e.g LnnyQcRbwEI">
+          <input id='videoInput' type="text" name='videoid' class="form-input" placeholder=" YouTube Link or VideoID e.g LnnyQcRbwEI">
           <button id='submit-btn' class="btn btn-primary input-group-btn">Submit</button>
         </div>
         <div class="form-groupn column col-6 col-xs-12 col-mr-auto" style="padding-top: 30px">
@@ -152,6 +152,8 @@
 
   <script src="{{ url_for('static', filename='js/main.js')}}" type="text/javascript"></script>
 
+  <script src="https://cdn.rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.js"></script>
+
 <script type="text/javascript">
 
 function postVideoId(ev) {
@@ -160,8 +162,9 @@ function postVideoId(ev) {
     method: 'POST',
     url: {{url_for('postVideoId') | tojson}},
     data: $('form').serialize(),
-    success: function (response) {
-      console.log("sent ${response} to postVideoId");
+    success: function (res) {
+
+      console.log(`Video sent, result: ${res.result} `);
     }
   });
 };

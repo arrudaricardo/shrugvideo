@@ -1,5 +1,5 @@
 #!flask/bin/python3
-from werkzeug.contrib.fixers import ProxyFix
+#from werkzeug.contrib.fixers import ProxyFix
 from app import app
 
 
