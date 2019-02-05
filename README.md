@@ -17,4 +17,4 @@ Framework:
 - flask-sqlalchemy - http://flask-sqlalchemy.pocoo.org
 - pafy - https://pythonhosted.org/Pafy/
 
-website available at https://shrugvideo.fun
+website available at http://shrugvideo.fun
