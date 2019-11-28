@@ -9,7 +9,7 @@ Logic:
 -Users are only able to skip video if finish currently video, reload page wont work.
 -Video starts muted to enable auto-play, audio start if user interact with the page. No able to select video iframe.
 
-[![Demo ShrugVideo](https://media.giphy.com/media/RJPHO2BRR2RgPhT5PP/giphy.gif)](https://www.youtube.com/watch?v=JWjl-BEdxp0&feature=youtu.be)
+[![Demo ShrugVideo](https://media.giphy.com/media/hsTtFqW5bpWNXRqt06/giphy.gif)](https://www.youtube.com/watch?v=m2Ep9eaB0_Q&feature=youtu.be)
 
 
 
