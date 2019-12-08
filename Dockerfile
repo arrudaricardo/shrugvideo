@@ -12,8 +12,6 @@ COPY requirements.txt requirements.txt
 # RUN env/bin/pip install gunicorn
 
 RUN pip install -r requirements.txt
-RUN pip install gunicorn
-
 
 COPY . .
 # RUN chmod +x boot.sh
