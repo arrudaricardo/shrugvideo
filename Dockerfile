@@ -1,16 +1,27 @@
 FROM python:3.7-alpine
 
-WORKDIR /app
+WORKDIR /shrugvideo
+
+RUN apk add sqlite
+RUN apk add socat
 
 COPY requirements.txt requirements.txt
-RUN python -m venv env
-RUN env/bin/pip install -r requirements.txt
-RUN env/bin/pip install gunicorn
 
-COPY . app
-RUN chmod +x boot.sh
+# RUN python -m venv env
+# RUN env/bin/pip install -r requirements.txt
+# RUN env/bin/pip install gunicorn
 
-COPY config.py boot.sh ./
+RUN pip install -r requirements.txt
+RUN pip install gunicorn
+
+
+COPY . .
+# RUN chmod +x boot.sh
+
+# gen database
+RUN ["python", "-c", "from app.models import init_db; init_db()"]
+
+COPY wsgi.py config.py boot.sh ./
 ENV FLASK_APP main.py
 
 EXPOSE 5000

@@ -4,13 +4,9 @@ from app import app
 from os.path import isfile
 
 
-# generate dabase 
-if isfile('./app.db'):
-	from app import models
-	models.init_db()  #initialize a db with samples
 		
 
-
+print('stating flask application')
 
 
 if __name__ == "__main__":
