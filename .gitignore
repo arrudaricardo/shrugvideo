@@ -1,7 +1,11 @@
 
 .vscode/
-
 .azure/
+
+#docker files
+docker-compose.yml
+docker-compose.debug.yml
+.dockerignore
 
 #ignore pyc
 *#
