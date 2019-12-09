@@ -1,4 +1,6 @@
 # ShrugVideo.fun \_(ツ)_/¯
+[![Build status](https://dev.azure.com/dearruda/ShrugVideo/_apis/build/status/shurgvideo%20-%20CI)](https://dev.azure.com/dearruda/ShrugVideo/_build/latest?definitionId=1)
+
 A flask base web app that user(IP) can submit their video just after watch the last video submitted.
 
 This application displays the last video submitted by the last user(IP), users are only able to submit his video after watch the currently video until the end.
