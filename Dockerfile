@@ -20,12 +20,13 @@ COPY . .
 # gen database
 RUN ["python", "-c", "from app.models import init_db; init_db()"]
 
-# add permition 
 # RUN ["chmod", "+x", "boot.sh"]
-RUN chmod +x boot.sh
 
 COPY wsgi.py config.py boot.sh ./
 ENV FLASK_APP main.py
+
+# add permition 
+RUN chmod +x boot.sh
 
 EXPOSE 5000
 ENTRYPOINT ["./boot.sh"]
