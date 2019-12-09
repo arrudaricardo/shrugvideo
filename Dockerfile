@@ -21,7 +21,7 @@ COPY . .
 RUN ["python", "-c", "from app.models import init_db; init_db()"]
 
 
-COPY wsgi.py config.py boot.sh ./
+COPY wsgi.py config.py ./
 ENV FLASK_APP main.py
 
 
